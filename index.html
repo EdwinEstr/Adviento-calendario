@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario de Adviento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .calendar-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .day {
+            width: 100px;
+            height: 100px;
+            background-color: #fff;
+            text-align: center;
+            line-height: 100px;
+            cursor: pointer;
+            border: 2px solid #c00;
+            border-radius: 50%;
+            font-size: 18px;
+            color: #c00;
+        }
+        .day:hover {
+            background-color: #c00;
+            color: #fff;
+        }
+        .content-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff9;
+            padding: 20px;
+            text-align: center;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="calendar-container">
+        <h1> ❤️Calendario de Adviento Diciembre 2023❤️</h1>
+        <div class="calendar" id="calendar">
+           
+        </div>
+    </div>
+    <div class="content-container" id="content-container">
+        
+    </div>
+    <script>
+        const calendar = document.getElementById("calendar");
+        const contentContainer = document.getElementById("content-container");
+        const days = 24; // Cantidad de días en el calendario
+
+        // Define un objeto con el contenido para cada día
+        const contenidoPorDia = {
+
+            1: {
+                tipo: "texto",
+                contenido: "Un 1 de marzo fue nuestra primera salida al cine ¿lo recuerdas mi amor? "
+            },
+
+            2: {
+                tipo: "imagen",
+                contenido: {
+        imagen: "images/2MA.jpg",
+        mensaje: "Un 2 de marzo fue nuestra primera vez que empezamos un dia como si vivieramos juntos jiji te amo."
+            }
+            },
+           
+            3: {
+             tipo: "cancion",
+             contenido: {
+             cancion: "m/cancion1.mp3",
+             mensaje: "Recuerdas nuestra primera cancion, la que definio y nos identifico."
+              }
+              },
+           4: {
+                tipo: "imagen",
+                contenido: {
+        imagen: "images/4feb.jpg",
+        mensaje: "Desde ese 4 de febrero, todos los dias 4 de cada mes me gustan( aunque no te lo diga), ya que ese dia hicimos nuestro click en donde sabiamos que senrtiamos algo TE AMO."
+            }
+            },
+            
+            5: {
+             tipo: "cancion",
+             contenido: {
+             cancion: "m/compartir.mp3",
+             mensaje: "Tambien un 5 de junio fue el primer cumpleaños que pase junto contigo amor, con mi princesa jsjs , de ese dia no tengo foto con tu regalo pero dejare una cancion que me recuerda a ti ."
+              }
+              },
+
+            6: {
+                tipo: "imagen",
+                contenido: {
+        imagen: "images/6may.jpg",
+        mensaje: " Nuestra primera fiesta a la que fuimos juntos amor, no nos dio tiempo de bailar pero si de mas cosas 05/06/23."
+            }
+            },
+
+            7: {
+                tipo: "imagen",
+                contenido: {
+        imagen: "images/santa.jpg",
+        mensaje: " Un 7 de abril amor fue nuestro dia de semana santa juntos, ese dia fue el segundo que iniciamos juntos desde temprano ❤."
+            }
+            },
+
+           8: {
+                tipo: "imagen",
+                contenido: {
+        imagen: "images/anillo.jpg",
+        mensaje: " ❤️ Este dia es uno de los mejores este dia te di el anillo de promesa, en el cual te prometi que siempre te amaria y que nunca te dejaria de amar ❤️."
+            }
+            },
+
+            9: {
+                tipo: "imagen",
+                contenido: {
+        imagen: "images/9.png",
+        mensaje: " ❤️ Este dia te dije qeu siempre serias mi copilota, ahi ya sabiamos a lque hibamos amor jsjs ❤️."
+            }
+            },
+            10: {
+                tipo: "imagen",
+                contenido: {
+        imagen: "images/10.jpg",
+        mensaje: " ❤️❤️❤️❤️❤️❤️❤️."
+            }
+            },
+            11: {
+                tipo: "imagen",
+                contenido: {
+        imagen: "images/11.jpg",
+            }
+            },
+           12: {
+                tipo: "texto",
+                contenido: "Te amo amor de mi vida eres la mejor, gracias por siempre estar apoyandome te amo "
+            },
+
+            13: {
+                tipo: "imagen",
+                contenido: {
+        imagen: "images/post.jpg",
+        mensaje: "Segunda fiesta a la que fuimos amor, lo mejor es que fue por parte de tu familia jsjs."
+            }
+            },
+
+            14: {
+                tipo: "imagen",
+                contenido: {
+        imagen: "images/14sep.jpg",
+        mensaje: "Este dia es mas reciente, ya que fue nuestro primer evento ganado, en el que todos vieron que somos el rey y la reyna claro hablo del 14 de septiembre(auqnue el dia no empezo al 100 tu lo mejoraste)."
+            }
+            },
+
+            15: {
+             tipo: "cancion",
+             contenido: {
+             cancion: "m/Nomás tú.mp3",
+              }
+              },
+
+           16: {
+                tipo: "texto",
+                contenido: "Te amo amor, ya casi es 24 siiiii te amooooo"
+            },
+           
+            17: {
+             tipo: "cancion",
+             contenido: {
+             cancion: "m/Enredados.mp3",
+             mensaje: "La cancio de tu pelicula favorita amor ."
+              }
+              },
+
+            18: {
+             tipo: "cancion",
+             contenido: {
+             cancion: "m/Ojitos Lindos.mp3",
+             mensaje: "Sabes esa cancion me identifica amor, por que ahora siempre tengo un buenos dias y lo mejor son tuyos te amo."
+              }
+              },
+
+           19: {
+                tipo: "imagen",
+                contenido: {
+        imagen: "images/19 anillo.jpg",
+        mensaje: "Este dia lo recuerdo por una sola cosa amor, por que ese dia te di el segundo anillo de promesa,mas bonito y todo que hasta pensaste que de compromiso era xd te amo ."
+            }
+            },
+
+            20: {
+                tipo: "imagen",
+                contenido: {
+        imagen: "images/10m.jpg",
+        mensaje: "Bueno cuando estes viendo este dia ya habremos cumplido 10 meses amor, espero te la hayas pasado bien amor, si no hice algo que te prometi lo siento pero se que lo are pero en enero asiq eu tranquia amor "
+            }
+            },
+
+            21: {
+                tipo: "imagen",
+                contenido: {
+        imagen: "images/ali.jpg",
+        mensaje: "Este dia es especial, ya que un 21 de agosto, conoci a la pequeña bebe ali jeje."
+            }
+            },
+            22: {
+                tipo: "imagen",
+                contenido: {
+        imagen: "images/post2.jpg",
+            },
+            },
+
+           23: {
+                tipo: "texto",
+                contenido: "Ya solo un dia amor, ya casi acaba este calendario vamos amor vamos jsjs "
+            },
+            24: {
+                tipo: "imagen",
+                contenido: {
+        imagen: "images/24N.jpg",
+        mensaje: "fELIZ PRE NAVIDAD AMOR MIO TE AMO, GRACIAS POR ESTE AÑO AMOR TE AMO ❤️❤️."
+            }
+            },
+        };
+
+        const diasPresionados = {};
+
+        for (let i = 1; i <= days; i++) {
+            const day = document.createElement("div");
+            day.className = "day";
+            day.textContent = i;
+            day.addEventListener("click", () => abrirDia(i));
+            calendar.appendChild(day);
+        }
+
+        function abrirDia(dia) {
+            if (diasPresionados[dia]) {
+                alert("Este día ya ha sido abierto.");
+                return;
+            }
+
+            const contenidoInfo = contenidoPorDia[dia];
+            
+            if (!contenidoInfo) {
+                alert("Día sin contenido específico.");
+                return;
+            }
+
+            const tipo = contenidoInfo.tipo;
+            const contenido = contenidoInfo.contenido;
+
+
+            const contenidoElement = document.createElement("div");
+            if (tipo === "imagen") {
+    const imagen = new Image();
+    imagen.src = contenido.imagen; 
+    imagen.style.width = "500px"; 
+    imagen.style.height = "auto"; 
+    imagen.style.display = "block"; 
+    imagen.style.margin = "0 auto"; 
+
+    contenidoElement.appendChild(imagen);
+
+    contenidoElement.appendChild(imagen);
+
+    if (contenido.mensaje) {
+        const mensaje = document.createElement("p");
+        mensaje.textContent = contenido.mensaje;
+        contenidoElement.appendChild(mensaje);
+    }
+} else if (tipo === "cancion") {
+    const cancion = new Audio(contenido.cancion); // Ruta de la canción
+    cancion.controls = true;
+    contenidoElement.appendChild(cancion);
+
+    // Verificar si hay un mensaje y agregarlo debajo del reproductor de audio
+    if (contenido.mensaje) {
+        const mensaje = document.createElement("p");
+        mensaje.textContent = contenido.mensaje;
+        contenidoElement.appendChild(mensaje);
+    }
+} else if (tipo === "texto") {
+    contenidoElement.textContent = contenido;
+}
+
+            // Limpiar el contenedor antes de mostrar nuevo contenido
+            while (contentContainer.firstChild) {
+                contentContainer.removeChild(contentContainer.firstChild);
+            }
+
+            // Agregar el contenido al contenedor central
+            contentContainer.appendChild(contenidoElement);
+            contentContainer.style.display = "block";
+
+            // Desactivar el día y marcarlo como presionado
+            const day = calendar.children[dia - 1];
+            day.style.backgroundColor = "#ccc";
+            day.style.cursor = "not-allowed";
+            day.disabled = true;
+            diasPresionados[dia] = true;
+
+            // Ocultar el contenido después de 3 minutos (180,000 ms)
+            setTimeout(() => {
+                contentContainer.style.display = "none";
+            }, 6000);
+        }
+    </script>
+</body>
+</html>
